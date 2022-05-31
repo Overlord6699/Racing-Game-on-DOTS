@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{a598e616-1527-4f92-a3de-35f195412ad1}">
+		<property name="assetPath">
+			<value>Surface/skid2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.0807083333333334</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e5210950-87af-4270-969b-ec7c427cd259}</destination>
+		</relationship>
+	</object>
+</objects>
