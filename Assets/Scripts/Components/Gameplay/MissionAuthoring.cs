@@ -6,7 +6,7 @@ namespace Drift
     public class MissionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
         public TaskAuthoring Task;
-        public MissionSceneAuthoring Scene;
+        public MissionSceneAuthoring TaskObjects;
         
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
@@ -22,7 +22,7 @@ namespace Drift
             dstManager.SetComponentData(entity, new Mission
             {
                 RootTask = taskEntity,
-                Scene = Scene != null ? conversionSystem.GetPrimaryEntity(Scene) : Entity.Null
+                Scene = TaskObjects != null ? conversionSystem.GetPrimaryEntity(TaskObjects) : Entity.Null
             });
         }
     }

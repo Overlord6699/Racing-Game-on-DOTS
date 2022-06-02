@@ -32,6 +32,19 @@ namespace Drift.Events
                 if (buffers.Count == 0) return;
                 producerJobs.Complete();
 
+                //переместил
+                /*
+                foreach (var eventBuffer in buffers)
+                {
+                    while (eventBuffer.events.TryDequeue(out var @event))
+                    {
+                        Handle(@event);
+                    }
+                    eventBuffer.Dispose();
+                }*/
+            }
+            finally
+            {
                 foreach (var eventBuffer in buffers)
                 {
                     while (eventBuffer.events.TryDequeue(out var @event))
@@ -40,14 +53,24 @@ namespace Drift.Events
                     }
                     eventBuffer.Dispose();
                 }
-            }
-            finally
-            {
+
                 buffers.Clear();
                 producerJobs = default;
             }
         }
         
+        protected override void OnDestroy()
+        {
+            foreach (var eventBuffer in buffers)
+            {
+                while (eventBuffer.events.TryDequeue(out var @event))
+                {
+                    Handle(@event);
+                }
+                eventBuffer.Dispose();
+            }
+        }
+
         public struct EventBuffer : IDisposable
         {
             internal NativeQueue<TEvent> events;

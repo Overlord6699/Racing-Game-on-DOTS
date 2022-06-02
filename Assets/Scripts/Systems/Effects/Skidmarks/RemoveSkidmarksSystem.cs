@@ -13,7 +13,12 @@ namespace Drift
             Object.Destroy(renderMesh.mesh);
             EntityManager.DestroyEntity(request.Entity);
         }
-        
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
+
         public struct Request
         {
             public Entity Entity;

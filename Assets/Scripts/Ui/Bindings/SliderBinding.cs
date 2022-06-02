@@ -23,7 +23,7 @@ namespace Drift.Ui
 
         private void OnDestroy()
         {
-            slider.onValueChanged.RemoveListener(OnSliderValueChanged);
+            slider?.onValueChanged?.RemoveListener(OnSliderValueChanged);
         }
 
         private void OnSliderValueChanged(float arg0)

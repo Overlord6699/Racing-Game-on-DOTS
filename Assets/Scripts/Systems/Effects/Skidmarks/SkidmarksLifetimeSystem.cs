@@ -17,24 +17,32 @@ namespace Drift
         }
         
         protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
+        {      
             Entities.ForEach((Entity entity, in Skidmarks skidmarks, in RenderMesh renderMesh) =>
             {
                 Object.Destroy(renderMesh.mesh);
             }).WithoutBurst().Run();
+
+            base.OnDestroy();
         }
         
         protected override void OnUpdate()
         {
             var requests = removeSkidmarksSystem.CreateBuffer();
+
+            if (requests.events.Count != 0)
+                Debug.Log("fdg");
             var deltaTime = Time.DeltaTime;
+
             Dependency = Entities.WithAll<Skidmarks>().ForEach((Entity entity, ref Lifetime lifetime) =>
             {
                 lifetime.Time -= deltaTime;
-                if (lifetime.Time < 0) requests.Enqueue(new RemoveSkidmarksSystem.Request {Entity = entity});
+
+                if (lifetime.Time < 0) 
+                    requests.Enqueue(new RemoveSkidmarksSystem.Request {Entity = entity});
+
             }).Schedule(Dependency);
+
             removeSkidmarksSystem.AddProducerJob(Dependency);
         }
     }
