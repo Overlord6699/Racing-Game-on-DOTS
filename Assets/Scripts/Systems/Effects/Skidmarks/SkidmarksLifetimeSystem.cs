@@ -29,9 +29,6 @@ namespace Drift
         protected override void OnUpdate()
         {
             var requests = removeSkidmarksSystem.CreateBuffer();
-
-            if (requests.events.Count != 0)
-                Debug.Log("fdg");
             var deltaTime = Time.DeltaTime;
 
             Dependency = Entities.WithAll<Skidmarks>().ForEach((Entity entity, ref Lifetime lifetime) =>
